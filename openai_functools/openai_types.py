@@ -1,3 +1,5 @@
+from typing import get_origin
+
 """Types module for openapi_functools """
 
 
@@ -10,7 +12,7 @@ def python_type_to_openapi_type(python_type: type) -> str:
         return "number"
     elif python_type == bool:
         return "boolean"
-    elif python_type == list:
+    elif get_origin(python_type) == list:
         return "array"
     elif python_type == dict:
         return "object"

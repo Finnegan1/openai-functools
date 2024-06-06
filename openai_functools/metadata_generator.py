@@ -1,7 +1,7 @@
 import inspect
 import typing
 from functools import wraps
-from typing import Any, Callable
+from typing import Any, Callable, get_args, get_origin
 
 from docstring_parser import parse
 
@@ -80,6 +80,9 @@ def extract_parameter_properties(
     else:
         if param.default != param.empty:
             properties["default"] = param.default
+
+    if get_origin(param.annotation) is list and len(get_args(param.annotation)) == 1:
+        properties["items"] = {"type": python_type_to_openapi_type(get_args(param.annotation)[0])}
 
     return properties
 

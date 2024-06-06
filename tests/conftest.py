@@ -159,3 +159,37 @@ def expected_function_with_literal_metadata():
             "required": [],
         },
     }
+
+
+@fixture
+def typed_list_parameter_function():
+    """Example function with typed list parameter."""
+
+    def check_if_contains(list_of_strings: list[str], searched_string: str) -> bool:
+        return searched_string in list_of_strings
+
+    return check_if_contains
+
+@fixture
+def expected_typed_list_parameter_metadata():
+    """Expected metadata for the list_of_parameter_function fixture."""
+    return {
+        "name": "check_if_contains",
+        "description": "check_if_contains",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "list_of_strings": {
+                    "type": "array",
+                    "description": "list_of_strings",
+                    "items": {"type": "string"},
+                },
+                "searched_string": {
+                    "type": "string",
+                    "description": "searched_string",
+                },
+            },
+            "required": ["list_of_strings", "searched_string"],
+        },
+    }
+

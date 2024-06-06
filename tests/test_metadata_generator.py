@@ -69,3 +69,12 @@ def test_construct_function_name_function(weather_function):
     constructed_name = construct_function_name(weather_function)
 
     assert constructed_name == "get_current_weather"
+
+def test_function_with_typed_list_should_have_array_items_type(
+    typed_list_parameter_function, expected_typed_list_parameter_metadata
+):
+    decorated_function = openai_function(typed_list_parameter_function)
+    decorated_function(["foo", "bar"], "foo")
+    assert (
+        decorated_function.openai_metadata == expected_typed_list_parameter_metadata
+    ), f"Expected {expected_typed_list_parameter_metadata}, but got {decorated_function.openai_metadata}"
