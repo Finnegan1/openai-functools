@@ -2,15 +2,15 @@ class Conversation:
     def __init__(self):
         self.conversation_history = []
 
-    def add_message(self, role, content, function_name=None):
+    def add_message(self, role, content, tool_call_id=None):
         # conditionally build message:
-        if function_name is None:
+        if tool_call_id is None:
             message = {"role": role, "content": content}
         else:
             message = {
                 "role": role,
                 "content": content,
-                "name": function_name,
+                "tool_call_id": tool_call_id,
             }
         self.conversation_history.append(message)
 
